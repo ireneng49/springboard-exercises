@@ -1,0 +1,38 @@
+h1{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: darkslategrey;
+    text-align: center;
+}
+
+#removebtn {
+    color: red;
+    cursor: pointer;
+}
+
+#searchbtn{
+    cursor: pointer;
+}
+
+
+form {
+    text-align: center;
+    padding: 10px;
+}
+
+.image {
+    width: 300px;
+    border: solid gray 2px;
+    padding: 5px;
+}
+
+div {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+body {
+    background-color: rgb(229, 236, 164);
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
