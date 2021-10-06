@@ -15,10 +15,9 @@ def sum_nums(nums):
     #sumnum = sum(nums)
     #return sumnum
 
-    sumnum = 0
-
-    for x in nums:
-        sumnum = sumnum + x
-    return sumnum
+    x = 0
+    for num in nums:
+      x += num
+    return x 
 
 print("sum_nums returned", sum_nums([1, 2, 3, 4]))

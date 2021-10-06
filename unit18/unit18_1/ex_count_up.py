@@ -13,16 +13,5 @@ def count_up(start, stop):
     """
 
     # YOUR CODE HERE
-    input = range(start,stop+1)
-    for x in input:
-        print(x)
-
-count_up(5, 10)        
-
-"""
-solution:
-def count_up(start, stop):
-    while start <= stop:
-        print(start)
-        start = start + 1
-"""
+    for num in range(start, stop+1):
+        print (num)
