@@ -2,7 +2,7 @@ from flask import Flask, request, render_template, jsonify, session
 from boggle import Boggle
 
 app = Flask(__name__)
-app.config["SECRET_KEY"] = "fdfgkjtjkkg45yfdb"
+app.config["SECRET_KEY"] = "a-secret"
 
 boggle_game = Boggle()
 
