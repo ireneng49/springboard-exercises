@@ -1,46 +1,53 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html>
+  <head>
+    <title>Boggle</title>
+    <link rel="stylesheet" href="/static/boggle.css">
+  </head>
+  <body>
+    <section id="boggle">
 
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Boggle</title>
-</head>
+      <table class="board">
+        <tbody>
+          {% for row in board %}
+          <tr>
+            {% for cell in row %}
+            <td>{{ cell }}</td>
+            {% endfor %}
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
 
-<body>
+      <p>High Score: 
+        <b>{{ highscore }}</b> 
+        in {{ nplays }} plays
+      </p>
 
-  <table class="board">
-    <tbody>
-      {% for row in board %}
-      <tr>
-        {% for cell in row %}
-        <td>
-          {{ cell }}
-        </td>
-        {% endfor %}
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
+      <p>
+        Score: <b class="score">0</b>
+        Seconds Left: <b class="timer"></b>
+      </p>
 
-  <form id="add-word" method="POST">
-    <input type="text" name="word" id="word" autofocus />
-    <button>Check</button>
-  </form>
+      <form method="POST" class="add-word">
+        <input name="word" class="word" autofocus>
+        <button>Enter</button>
+      </form>
 
-  <p>
-    score: <span id="score">0</span><br />
-    timer: <span id="timer"></span>
-  </p>
+      <p class="msg">
+        <!-- our JS will put messages here dynamically -->
+      </p>
 
-  <p id="msg"></p>
+      <ul class="words">
+        <!-- our JS will words here as they score -->   
+      </ul>
 
-  <ul id="words"></ul>
-
-  <script src="https://unpkg.com/jquery"></script>
-  <script src="https://unpkg.com/axios/dist/axios.js"></script>
-  <script src="/static/app.js"></script>
-</body>
-
+    </section>
+    <script src="http://unpkg.com/jquery"></script>
+    <script src="https://unpkg.com/axios@0.19.0/dist/axios.js"></script>
+    <script src="/static/boggle.js"></script>
+    <script>
+      let game = new BoggleGame("boggle", 60);
+    </script>
+  </body>
 </html>
