@@ -10,26 +10,26 @@ CREATE DATABASE outer_space;
 CREATE TABLE moon (
   id SERIAL PRIMARY KEY,
   moon_name TEXT
+  orbiting_planet INTEGER REFERENCES planet ON DELETE CASCADE
 );
 
 CREATE TABLE galaxy (
   id SERIAL PRIMARY KEY,
-  galaxy_name TEXT
+  galaxy_name TEXT NOT NULL
 );
 
-CREATE TABLE orbit_aroud_planet (
+CREATE TABLE orbital_star (
   id SERIAL PRIMARY KEY,
-  orbit_aroud_planet_name TEXT
+  orbital_star_name TEXT
 );
 
-CREATE TABLE planet_info
+CREATE TABLE planet
 (
   id SERIAL PRIMARY KEY,
   planet_id INT NOT NULL,
   orbital_period_in_year FLOAT NOT NULL,
-  orbit_around_planet_id INT NOT NULL,
-  galaxy_id INT NOT NULL,
-  moon_id INT DEFAULT NULL
+  orbits_around INT REFERENCES orbital_star ON DELETE SET NULL,
+  galaxy INTEGER REFERENCES galaxy ON DELETE NULL
 );
 
 CREATE TABLE planet (
@@ -42,7 +42,7 @@ VALUES ('Earth'), ('Mars'), ('Neptune'), ('Venus'),
 ('Proxima Centauri b'), ('Gliese 876 b');
 
 INSERT INTO planet_info
-  (planet_id, orbital_period_in_year, orbit_around_planet_id, galaxy_id, moon_id)
+  (planet_id, orbital_period_in_years, orbits_around_planet_id, galaxy_id, moons_id)
 VALUES
   (1, 1.00, 1, 1, 1),
   (2, 1.88, 1, 1, 2),
@@ -63,7 +63,7 @@ VALUES
   (3, 164.8, 1, 1, 17);
   
   INSERT INTO planet_info
-  (planet_id, orbital_period_in_year, orbit_around_planet_id, galaxy_id)
+  (planet_id, orbital_period_in_years, orbits_around_planet_id, galaxy_id)
   VALUES (4, 0.62, 1, 1), (5, 0.03, 2, 1), (6, 0.23, 3, 1); 
 
   INSERT INTO moon (moon_name)
@@ -74,5 +74,5 @@ VALUES
   INSERT INTO galaxy (galaxy_name)
   VALUES ('Milky Way');
 
-  INSERT INTO orbit_aroud_planet(orbits_aroud_planet_name)
+  INSERT INTO orbits_around_planet(orbits_around_planet_name)
   VALUES ('The Sun'), ('Proxima Centauri'), ('Gliese 876');
