@@ -7,69 +7,72 @@ CREATE DATABASE outer_space;
 
 \c outer_space
 
-CREATE TABLE planets
+CREATE TABLE moon (
+  id SERIAL PRIMARY KEY,
+  moon_name TEXT
+);
+
+CREATE TABLE galaxy (
+  id SERIAL PRIMARY KEY,
+  galaxy_name TEXT
+);
+
+CREATE TABLE orbit_aroud_planet (
+  id SERIAL PRIMARY KEY,
+  orbit_aroud_planet_name TEXT
+);
+
+CREATE TABLE planet_info
 (
   id SERIAL PRIMARY KEY,
-  name TEXT NOT NULL,
-  orbital_period_in_years FLOAT NOT NULL,
-  orbits_around INTEGER NOT NULL
+  planet_id INT NOT NULL,
+  orbital_period_in_year FLOAT NOT NULL,
+  orbit_around_planet_id INT NOT NULL,
+  galaxy_id INT NOT NULL,
+  moon_id INT DEFAULT NULL
 );
 
-INSERT INTO planets (name, orbital_period_in_years,orbits_around)
-VALUES
-('Earth', 1, 1),
-('Mars', 1.88, 1),
-('Venus', 0.62, 1),
-('Neptune', 164.8, 1),
-('Proxima Centauri b', 0.03, 2),
-('Gliese 876 b', 0.23,3);
-
-CREATE TABLE orbitsaround
-(
-    id SERIAL PRIMARY KEY,
-    name TEXT NOT NULL,
-    galaxy INTEGER NOT NULL
-);
-
-INSERT INTO orbitsaround (name, galaxy)
-VALUES
-('The Sun' , 1),
-('Proxima Centauri', 1),
-('Gliese 876', 1);
-
-CREATE TABLE galaxy
-(
+CREATE TABLE planet (
   id SERIAL PRIMARY KEY,
   name TEXT NOT NULL
 );
 
-INSERT INTO galaxy (name)
-VALUES
-('Milky Way');
+INSERT INTO planet (name)
+VALUES ('Earth'), ('Mars'), ('Neptune'), ('Venus'), 
+('Proxima Centauri b'), ('Gliese 876 b');
 
-CREATE TABLE moons
-(
-  id SERIAL PRIMARY KEY,
-  name TEXT NOT NULL,
-  planets_id INTEGER NOT NULL
-);
-
-INSERT INTO moons (name, planets_id)
+INSERT INTO planet_info
+  (planet_id, orbital_period_in_year, orbit_around_planet_id, galaxy_id, moon_id)
 VALUES
-('The Moon', 1),
-('Phobos', 2),
-('Deimos', 2),
-('Naiad', 3),
-('Thalassa', 3),
-('Despina', 3),
-('Galatea', 3),
-('Larissa', 3),
-('S/2004 N 1', 3),
-('Proteus', 3),
-('Triton', 3),
-('Nereid', 3),
-('Halimede', 3),
-('Sao', 3),
-('Laomedeia', 3),
-('Psamathe', 3),
-('Neso', 3);
+  (1, 1.00, 1, 1, 1),
+  (2, 1.88, 1, 1, 2),
+  (2, 1.88, 1, 1, 3),
+  (3, 164.8, 1, 1, 4),
+  (3, 164.8, 1, 1, 5),
+  (3, 164.8, 1, 1, 6),
+  (3, 164.8, 1, 1, 7),
+  (3, 164.8, 1, 1, 8),
+  (3, 164.8, 1, 1, 9),
+  (3, 164.8, 1, 1, 10),
+  (3, 164.8, 1, 1, 11),
+  (3, 164.8, 1, 1, 12),
+  (3, 164.8, 1, 1, 13),
+  (3, 164.8, 1, 1, 14),
+  (3, 164.8, 1, 1, 15),
+  (3, 164.8, 1, 1, 16),
+  (3, 164.8, 1, 1, 17);
+  
+  INSERT INTO planet_info
+  (planet_id, orbital_period_in_year, orbit_around_planet_id, galaxy_id)
+  VALUES (4, 0.62, 1, 1), (5, 0.03, 2, 1), (6, 0.23, 3, 1); 
+
+  INSERT INTO moon (moon_name)
+  VALUES ('The Moon'), ('Phobos'), ('Deimos'), ('Naiad'), ('Thalassa'), ('Despina'), ('Galatea'), 
+  ('Larissa'), ('Hippocamp'), ('Proteus'), ('Triton'), ('Nereid'), ('Halimede'),
+  ('Sao'), ('Laomedeia'), ('Psamathe'), ('Neso');
+
+  INSERT INTO galaxy (galaxy_name)
+  VALUES ('Milky Way');
+
+  INSERT INTO orbit_aroud_planet(orbits_aroud_planet_name)
+  VALUES ('The Sun'), ('Proxima Centauri'), ('Gliese 876');
