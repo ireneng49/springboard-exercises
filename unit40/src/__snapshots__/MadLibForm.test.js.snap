@@ -1,0 +1,119 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`matches snapshot 1`] = `
+<DocumentFragment>
+  <form
+    style="text-align: center;"
+  >
+    <label
+      for="noun"
+      style="display: block; margin-top: 5px;"
+    >
+      Noun
+    </label>
+    <input
+      id="noun"
+      name="noun"
+      placeholder="noun"
+      type="text"
+      value=""
+    />
+    <label
+      for="noun2"
+      style="display: block; margin-top: 5px;"
+    >
+      Noun 2
+    </label>
+    <input
+      id="noun2"
+      name="noun2"
+      placeholder="noun 2"
+      type="text"
+      value=""
+    />
+    <label
+      for="adjective"
+      style="display: block; margin-top: 5px;"
+    >
+      Adjective
+    </label>
+    <input
+      id="adjective"
+      name="adjective"
+      placeholder="adjective"
+      type="text"
+      value=""
+    />
+    <label
+      for="color"
+      style="display: block; margin-top: 5px;"
+    >
+      Color
+    </label>
+    <input
+      id="color"
+      name="color"
+      placeholder="color"
+      type="text"
+      value=""
+    />
+    <label
+      for="story"
+      style="display: block; margin-top: 20px;"
+    >
+      Choose a Story
+    </label>
+    <select
+      id="story"
+      name="story"
+    >
+      <option
+        value="Once Upon a Time"
+      >
+        Once Upon a Time
+      </option>
+      <option
+        value="True Love"
+      >
+        True Love
+      </option>
+      <option
+        value="Silly Song"
+      >
+        Silly Song
+      </option>
+      <option
+        value="Neighborhood"
+      >
+        Neighborhood
+      </option>
+      <option
+        value="Nature Documentary"
+      >
+        Nature Documentary
+      </option>
+      <option
+        value="Grocery Shopping"
+      >
+        Grocery Shopping
+      </option>
+      <option
+        value="Car Repair"
+      >
+        Car Repair
+      </option>
+      <option
+        value="Pet Store"
+      >
+        Pet Store
+      </option>
+    </select>
+    <button
+      style="background-color: lightgreen; border-radius: 5px; padding: 5px 10px; font-weight: 700; border: 2px solid black; display: block; margin-top: 10px; margin-left: 40px;"
+      type="submit"
+    >
+      Create Story
+    </button>
+  </form>
+</DocumentFragment>
+`;

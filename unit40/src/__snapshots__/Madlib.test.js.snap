@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`matches snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="MadLib"
+  >
+    <h3>
+      Story: True Love
+    </h3>
+    <h3>
+      There was a pink fish who loved a scaly dog.
+    </h3>
+    <button
+      style="background-color: lightgreen; border-radius: 5px; padding: 5px 10px; font-weight: 700; border: 2px solid black;"
+    >
+      Make Another Story
+    </button>
+  </div>
+</DocumentFragment>
+`;
