@@ -1,0 +1,59 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`matches the snapshot 1`] = `
+<DocumentFragment>
+  <section
+    class="col-md-4"
+  >
+    <div
+      class="card"
+    >
+      <div
+        class="card-body"
+      >
+        <h5
+          class="font-weight-bold text-center card-title"
+        >
+          Snacks Menu
+        </h5>
+        <p
+          class="card-text"
+        >
+          Some quick example text to build on the card title and make up the bulk of the card's content.
+        </p>
+        <ul
+          class="list-group"
+        >
+          <a
+            href="/snacks/nachos"
+          >
+            <li
+              class="list-group-item"
+            >
+              Nachos
+            </li>
+          </a>
+          <a
+            href="/snacks/hummus"
+          >
+            <li
+              class="list-group-item"
+            >
+              Hummus
+            </li>
+          </a>
+          <a
+            href="/snacks/arugula-and-walnut-salad"
+          >
+            <li
+              class="list-group-item"
+            >
+              Arugula and Walnut Salad
+            </li>
+          </a>
+        </ul>
+      </div>
+    </div>
+  </section>
+</DocumentFragment>
+`;
