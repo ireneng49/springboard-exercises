@@ -90,6 +90,34 @@ describe("POST /auth/login", function() {
     expect(username).toBe("u1");
     expect(admin).toBe(false);
   });
+
+  // TESTS BUG #3
+  test("should put an admin's correct status on token after login", async function() {
+    const response = await request(app)
+      .post("/auth/login")
+      .send({
+        username: "u3",
+        password: "pwd3"
+      });
+    expect(response.statusCode).toBe(200);
+    expect(response.body).toEqual({ token: expect.any(String) });
+
+    let { username, admin } = jwt.verify(response.body.token, SECRET_KEY);
+    expect(username).toBe("u3");
+    expect(admin).toBe(true);
+  });
+
+  // TESTS BUG #4
+  test("should prevent login with wrong password", async function() {
+    const response = await request(app)
+      .post("/auth/login")
+      .send({
+        username: "u3",
+        password: "wrongpw"
+      })
+    ;
+    expect(response.statusCode).toBe(401);
+  });
 });
 
 describe("GET /users", function() {
@@ -104,6 +132,16 @@ describe("GET /users", function() {
       .send({ _token: tokens.u1 });
     expect(response.statusCode).toBe(200);
     expect(response.body.users.length).toBe(3);
+  });
+
+  // TESTS BUG #2
+  test("should deny access if token signature has been tampered with", async function() {
+    let badToken = tokens.u1.concat("a");
+    console.log("BAD TOKEN: ", badToken);
+    const response = await request(app)
+      .get("/users")
+      .send({ _token: badToken });
+    expect(response.statusCode).toBe(401);
   });
 });
 
@@ -157,6 +195,34 @@ describe("PATCH /users/[username]", function() {
     });
   });
 
+  // TESTS BUG #6
+  test("should patch data if correct user", async function() {
+    const response = await request(app)
+      .patch("/users/u1")
+      .send({ _token: tokens.u1, first_name: "Sam" });
+    expect(response.statusCode).toBe(200);
+    expect(response.body.user).toEqual({
+      username: "u1",
+      first_name: "Sam",
+      last_name: "ln1",
+      email: "email1",
+      phone: "phone1",
+      admin: false,
+      password: expect.any(String)
+    });
+  });
+
+  // TESTS BUG #7
+  test("should prevent a user from changing admin rights for self", async function() {
+    const response = await request(app)
+      .patch("/users/u1")
+      .send({ _token: tokens.u1, admin: true });
+    expect(response.statusCode).toBe(400);
+  });
+
+  // Part of original code.
+  // It was passing for the wrong reason; the original code did not allow non-admins like u1 to update their own data, which resulted in a 401 response status.
+  // The test above for BUG #7 is a similar test, but it expects the correct status code of 400.
   test("should disallowing patching not-allowed-fields", async function() {
     const response = await request(app)
       .patch("/users/u1")

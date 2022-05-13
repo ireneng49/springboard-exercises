@@ -3,6 +3,8 @@
 const User = require('../models/user');
 const express = require('express');
 const router = new express.Router();
+const userSchemaUpdate = require("../schemas/userSchemaUpdate");
+const validateData = require("../helpers/validateData");
 const ExpressError = require('../helpers/expressError');
 const { authUser, requireLogin, requireAdmin } = require('../middleware/auth');
 
@@ -63,19 +65,27 @@ router.get('/:username', authUser, requireLogin, async function(
  *
  */
 
-router.patch('/:username', authUser, requireLogin, requireAdmin, async function(
+router.patch('/:username', authUser, requireLogin, async function(
   req,
   res,
   next
 ) {
   try {
     if (!req.curr_admin && req.curr_username !== req.params.username) {
-      throw new ExpressError('Only  that user or admin can edit a user.', 401);
+      throw new ExpressError('Only that user or admin can edit a user.', 401);
     }
 
     // get fields to change; remove token so we don't try to change it
     let fields = { ...req.body };
     delete fields._token;
+
+    // FIXES BUG #7
+    // validate the data on the request body
+    const validationOutcome = validateData(req.body, userSchemaUpdate);
+    // pass any validation errors to error handler
+    if (validationOutcome instanceof Error) {
+      return next(validationOutcome);
+    }
 
     let user = await User.update(req.params.username, fields);
     return res.json({ user });
@@ -86,7 +96,7 @@ router.patch('/:username', authUser, requireLogin, requireAdmin, async function(
 
 /** DELETE /[username]
  *
- * Delete a user. Only an admin user should be able to use this.
+ * Delete a user. Only a staff user should be able to use this.
  *
  * It should return:
  *   {message: "deleted"}
@@ -100,7 +110,11 @@ router.delete('/:username', authUser, requireAdmin, async function(
   next
 ) {
   try {
-    User.delete(req.params.username);
+    // OLD CODE
+    // User.delete(req.params.username);
+
+    // FIXES BUG #8
+    await User.delete(req.params.username);
     return res.json({ message: 'deleted' });
   } catch (err) {
     return next(err);
